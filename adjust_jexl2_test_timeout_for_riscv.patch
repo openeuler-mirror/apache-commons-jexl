@@ -1,0 +1,26 @@
+diff --git a/src/test/java/org/apache/commons/jexl2/CacheTest.java b/src/test/java/org/apache/commons/jexl2/CacheTest.java
+index 8cb7dd4..2c35648 100644
+--- a/src/test/java/org/apache/commons/jexl2/CacheTest.java
++++ b/src/test/java/org/apache/commons/jexl2/CacheTest.java
+@@ -293,7 +293,7 @@ public class CacheTest extends JexlTestCase {
+             tasks.add(jexl.newInstance(ctask, loops));
+         }
+         // let's not wait for more than a minute
+-        List<Future<Integer>> futures = execs.invokeAll(tasks, 60, TimeUnit.SECONDS);
++        List<Future<Integer>> futures = execs.invokeAll(tasks, 300, TimeUnit.SECONDS);
+         // check that all returned loops
+         for(Future<Integer> future : futures) {
+             assertEquals(Integer.valueOf(loops), future.get());
+diff --git a/src/test/java/org/apache/commons/jexl2/IssuesTest.java b/src/test/java/org/apache/commons/jexl2/IssuesTest.java
+index 9b9fcb6..1e0ac8a 100644
+--- a/src/test/java/org/apache/commons/jexl2/IssuesTest.java
++++ b/src/test/java/org/apache/commons/jexl2/IssuesTest.java
+@@ -410,7 +410,7 @@ public class IssuesTest extends JexlTestCase {
+         assertEquals(Integer.valueOf(11), value);
+         long end = System.nanoTime();
+         double millisec = (end - start) / 1e6;
+-        double limit = 200.0; // Allow plenty of slack
++        double limit = 1000.0; // Allow plenty of slack
+         assertTrue("Expected parse to take less than " + limit + "ms, actual " + millisec, millisec < limit);
+     }
+ 
