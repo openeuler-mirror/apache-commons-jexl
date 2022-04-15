@@ -2,7 +2,7 @@
 %global compatver 2.1.0
 Name:                apache-%{jarname}
 Version:             2.1.1
-Release:             1
+Release:             2
 Summary:             Java Expression Language (JEXL)
 License:             ASL 2.0
 URL:                 http://commons.apache.org/jexl
@@ -10,6 +10,7 @@ Source0:             http://www.apache.org/dist/commons/jexl/source/%{jarname}-%
 Patch0:              001-Fix-tests.patch
 Patch1:              apache-commons-jexl-javadoc.patch
 Patch2:              0001-Port-to-current-javacc.patch
+Patch3:              adjust_jexl2_test_timeout_for_riscv.patch
 BuildRequires:       maven-local mvn(commons-logging:commons-logging) mvn(junit:junit)
 BuildRequires:       mvn(org.apache.commons:commons-parent:pom:)
 BuildRequires:       mvn(org.codehaus.mojo:javacc-maven-plugin)
@@ -41,6 +42,7 @@ This package contains the API documentation for %{name}.
 %patch0 -p1 -b .test
 %patch1 -p1 -b .javadoc
 %patch2 -p1
+%patch3 -p1
 %pom_remove_dep org.apache.bsf:bsf-api
 find \( -name '*.jar' -o -name '*.class' \) -delete
 find -name '*.txt' -exec sed -i 's/\r//' '{}' +
@@ -74,5 +76,8 @@ echo "
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Wed Apr 13 2022 laokz <laokz@foxmail.com> - 2.1.1-2
+- Add patch3 to avoid test timeout on riscv
+
 * Mon Jul 27 2020 chengzihan <chengzihan2@huawei.com> - 2.1.1-1
 - Package init
